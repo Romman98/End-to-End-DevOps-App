@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config
+  labels:
+    app: reviews
+data:
+  MYSQL_ROOT_PASSWORD: "root_password"
+  MYSQL_USER: "romman"
+  MYSQL_PASSWORD: "romman" #This needs to be moved to a secret
+  MYSQL_DATABASE: "Namesdb"
+  MYSQL_URL: mysql://$(MYSQL_USER):$(MYSQL_PASSWORD)@$(DB_HOST):3307/$(MYSQL_DATABASE)

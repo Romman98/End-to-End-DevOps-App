@@ -1,7 +1,13 @@
 from flask import Flask, request, Response, jsonify
-from connDB import queryFunc, checkEntry
+from connDB import queryFunc, checkEntry, DATABASE_INIT
 
 app = Flask(__name__)
+
+DATABASE_INIT()
+
+@app.route('/')
+def index():
+    return "I am working!"
 
 @app.route('/review/new',methods=["POST"])
 def new_review():
