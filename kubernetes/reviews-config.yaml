@@ -5,7 +5,7 @@ metadata:
   labels:
     app: reviews
 data:
-  DB_HOST: mysql-ss-0.mysql-svc.default.svc.cluster.local #needs to be edited
   MYSQL_USER: "romman"
-  MYSQL_DATABASE: "Namesdb"
-  MYSQL_URL: mysql://$(MYSQL_USER):$(MYSQL_PASSWORD)@$(DB_HOST):3307/$(MYSQL_DATABASE)
+  MYSQL_DATABASE: "Reviews"
+  MYSQL_HOST: reviews-mysql-ss-0.mysql-svc.default.svc.cluster.local #needs to be edited
+  MYSQL_URL: mysql://romman:romman@reviews-mysql-ss-0.mysql-svc.default.svc.cluster.local:3307/Reviews

@@ -5,8 +5,6 @@ metadata:
   labels:
     app: reviews
 data:
-  MYSQL_ROOT_PASSWORD: "root_password"
   MYSQL_USER: "romman"
-  MYSQL_PASSWORD: "romman" #This needs to be moved to a secret
-  MYSQL_DATABASE: "Namesdb"
-  MYSQL_URL: mysql://$(MYSQL_USER):$(MYSQL_PASSWORD)@$(DB_HOST):3307/$(MYSQL_DATABASE)
+  MYSQL_DATABASE: "Reviews"
+  MYSQL_HOST: "reviews-mysql-ss-0.mysql-svc.default.svc.cluster.local"

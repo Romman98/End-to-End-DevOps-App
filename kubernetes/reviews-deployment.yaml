@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reviews-dep
+  labels:
+    app: reviews
+spec:
+  selector:
+    matchLabels:
+      app: reviews
+  template:
+    metadata:
+      labels:
+        app: reviews
+    spec:
+      containers:
+        - name: reviews-container
+          image: romman1998/reviews:1.1.0
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: reviews-config
+                  key: MYSQL_HOST
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: reviews-config
+                  key: MYSQL_USER
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: reviews-config
+                  key: MYSQL_DATABASE
+            - name: MYSQL_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: reviews-config
+                  key: MYSQL_URL
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: reviews-secrets
+                  key: MYSQL_PASSWORD
