@@ -24,7 +24,7 @@ jobs:
       - name: Build Docker image
         run: |
           IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/names:${{ github.event.inputs.image_tag }}"
-          docker build -t $IMAGE .
+          docker build -t $IMAGE -f app/Dockerfile app/
           echo "IMAGE=$IMAGE" >> $GITHUB_ENV
       - name: Push Docker image
         run: |
