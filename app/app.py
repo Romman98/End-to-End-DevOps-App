@@ -1,13 +1,20 @@
 from flask import Flask, request, Response, jsonify
 from connDB import queryFunc, checkEntry, DATABASE_INIT
+from prometheus_client import Counter, generate_latest, CollectorRegistry, CONTENT_TYPE_LATEST
 
 app = Flask(__name__)
 
+REQUEST_COUNTER = Counter('names_requests_total','Total requests to the app',['endpoint','method'])
+
 DATABASE_INIT()
+
+@app.before_request
+def before_request():
+    REQUEST_COUNTER.labels(endpoint=request.path, method=request.method).inc()
 
 @app.route('/')
 def index():
-    return "I am working!! Hellooo Google Cloud!"
+    return "I am working!"
 
 @app.route('/review/new',methods=["POST"])
 def new_review():
@@ -39,6 +46,9 @@ def get_review():
         
     return jsonify({"Result": data})
 
-if __name__ == "__main__":
+@app.route('/metrics')
+def metrics():
+    return Response(generate_latest(), mimetype=CONTENT_TYPE_LATEST)
 
+if __name__ == "__main__":
     app.run(host="0.0.0.0",port=5000)
