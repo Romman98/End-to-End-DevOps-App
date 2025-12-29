@@ -14,7 +14,7 @@ def before_request():
 
 @app.route('/')
 def index():
-    return "I am working!"
+    return "I am working!!"
 
 @app.route('/review/new',methods=["POST"])
 def new_review():
@@ -52,3 +52,4 @@ def metrics():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=5000)
+
